@@ -1,10 +1,11 @@
 import './app.scss'
+import { CreateEmployee } from './pages/CreateEmployee'
 
 function App() {
 
   return (
-    <div className='hello-div'>
-      Hello Vite
+    <div>
+      <CreateEmployee />
     </div>
   )
 }
