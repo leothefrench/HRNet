@@ -1,11 +1,11 @@
+import { Router } from './Router'
 import './app.scss'
-import { CreateEmployee } from './pages/CreateEmployee'
 
 function App() {
 
   return (
     <div>
-      <CreateEmployee />
+      <Router />
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { CreateEmployee } from './pages/CreateEmployee'
 import { EmployeeList } from './pages/EmployeeList'
 
-export const router = () => {
+export const Router = () => {
   return (
     <Routes>
         <Route path='/' element={<CreateEmployee />} />
