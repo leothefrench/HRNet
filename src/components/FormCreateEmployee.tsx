@@ -4,6 +4,9 @@ import { useState } from 'react'
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 import { ModalConfirmationCreateEmployee } from './ModalConfirmationCreateEmployee';
+import Select from 'react-select'
+import { department } from '../dataDepartment';
+import { optionStates } from '../dataOptionStates';
 
 /**
  * Cette interface définit la structure des données nécessaires à la création d'un nouvel employée.
@@ -81,14 +84,17 @@ export const FormCreateEmployee: React.FC = () => {
                 <label htmlFor="city">City</label>
                 <input id="city" type="text" name="city" 
                   value={dataEmployee.city} onChange={(e) => handleChangeDataEmployee('city', e.target.value)} />
-
+                  
                 <label htmlFor="state">State</label>
+                <Select options={optionStates} />
+                
+                {/* <label htmlFor="state">State</label>
                 <select name="state" id="state" 
                   value={dataEmployee.state} onChange={(e) => handleChangeDataEmployee('state', e.target.value)}>
                     {states.map((state, index) => (
                       <option key={index} value={state.name}>{state.name}</option>
                     ))}
-                </select>
+                </select> */}
 
                 <label htmlFor="zip-code">Zip Code</label>
                 <input id="zip-code" type="number" name="zip-code"
@@ -96,15 +102,8 @@ export const FormCreateEmployee: React.FC = () => {
             </fieldset>
 
             <label htmlFor="department">Department</label>
-            <select name="department" id="department">
-                <option>Sales</option>
-                <option>Marketing</option>
-                <option>Engineering</option>
-                <option>Human Resources</option>
-                <option>Legal</option>
-            </select>
+            <Select options={department} />
         </form>
-
         <ModalConfirmationCreateEmployee />
     </div>
   )
