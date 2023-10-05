@@ -1,0 +1,27 @@
+.modal, .modal__overlay {
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.modal__overlay {
+    background-color: rgba(49,49,49, .7);
+}
+.modal__content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid;
+    background-color: #fff;
+
+    &__close-btn {
+        padding: 10px 20px;
+        border-radius: 4px;
+        display: block;
+        margin: 100px auto 0;
+    }
+}

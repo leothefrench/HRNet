@@ -3,6 +3,7 @@ import { states } from '../dataStates'
 import { useState } from 'react'
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
+import { ModalConfirmationCreateEmployee } from './ModalConfirmationCreateEmployee';
 
 /**
  * Cette interface définit la structure des données nécessaires à la création d'un nouvel employée.
@@ -104,7 +105,7 @@ export const FormCreateEmployee: React.FC = () => {
             </select>
         </form>
 
-        <button type='submit'>Save</button>
+        <ModalConfirmationCreateEmployee />
     </div>
   )
 }
