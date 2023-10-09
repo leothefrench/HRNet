@@ -1,7 +1,7 @@
-import './employeeList.scss'
+import { TableListEmployees } from '../components/TableListEmployees'
 
 export const EmployeeList = () => {
   return (
-    <div>EmployeeList</div>
+    <TableListEmployees />
   )
 }

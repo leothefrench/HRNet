@@ -1,4 +1,4 @@
-import './modalConfirmationCreateEmployee.scss'
+// import './modalConfirmationCreateEmployee.scss'
 import { useState } from 'react'
 
 /**
@@ -15,17 +15,16 @@ export const ModalConfirmationCreateEmployee = () => {
 
   return (
     <>
-        <button type="submit" className='btn-modal'onClick={toggleModal}>Save</button>
+        <button type="submit" onClick={toggleModal}>Save</button>
         {modal && (
-        <div className="modal">
-            <div className="modal__overlay"></div>
-            <div className="modal__content">
-                <p className='modal__content__para'>Création de  la fiche employée créé</p>
-                <button className='modal__content__close-btn' onClick={toggleModal}>X</button>
+        <div className="fixed inset-0 flex items-center justify-center">
+            <div className="fixed inset-0 w-screen h-screen bg-gray-700 bg-opacity-70"></div>
+            <div className="flex items-center justify-between absolute top-2/5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border bg-white w-1/2 h-16 rounded-md">
+                <p className="mx-4">Employee Created!</p>
+                <button className="px-10 py-20 rounded-md block mt-100 bg-gray-500" onClick={toggleModal}>X</button>
             </div>
         </div>
         )}
-
     </>
   )
-}
+} 
