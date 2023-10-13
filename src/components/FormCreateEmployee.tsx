@@ -3,7 +3,7 @@ import { states } from './data/dataStates'
 import { useState } from 'react'
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
-import { ModalConfirmationCreateEmployee } from './ModalConfirmationCreateEmployee';
+import { Modal } from './plugins/ModalDialog'
 import Select from 'react-select'
 import { department } from './data/dataDepartment';
 import { optionStates } from './data/dataOptionStates';
@@ -15,8 +15,8 @@ import { Link } from 'react-router-dom';
 interface EmployeeData {
   firstName: string,
   lastName: string,
-  dateOfBirth: string,
-  startDate: string,
+  dateOfBirth: Date,
+  startDate: Date,
   street: string,
   city: string
   state: string,
@@ -29,13 +29,13 @@ interface EmployeeData {
  * Ce composant permet de saisir les informations nécessaire à la création comme, le prénom, le nom, la date de naissance, etc ...
  * @returns {JSX.Element} Formulaire de création d'employé
  */
-export const FormCreateEmployee: React.FC = () => {
+export const FormCreateEmployee = () => {
 
   const [dataEmployee, setDataEmployee] = useState<EmployeeData>({
     firstName: '',
     lastName: '',
-    dateOfBirth: '',
-    startDate: '',
+    dateOfBirth: new Date(),
+    startDate: new Date(),
     street: '',
     city: '',
     state: '',
@@ -46,19 +46,25 @@ export const FormCreateEmployee: React.FC = () => {
 
   /**
    * Fonction permettant la gestion des informatiosn rentrées dans le formulaire
-   * @param fieldName
-   * @param value 
    */
-  const handleChangeDataEmployee = (fieldName: keyof EmployeeData, value: string) => {
+  const handleChangeDataEmployee = (fieldName: keyof EmployeeData, value: string | Date) => {
+    if(fieldName === 'dateOfBirth' || fieldName === 'startDate') {
+     value = value instanceof Date ? value : new Date(value)
+    }
     setDataEmployee({...dataEmployee, [fieldName]: value}) 
   }
 
   const [selectedDate, setSelectedDate]= useState(null) // Birth Date
   const [selectedStartDate, setSelectedStartDate]= useState(null) // 
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const toggleModal = () => {
+      setModalIsOpen(!modalIsOpen)     
+  }
 
   return (
     <div className="flex flex-col items-center justify-center bg-teal-500 w-1/2 m-auto">
-        <Link to='./employees'>View Current Employees</Link>
+        <Link to='/employees'>View Current Employees</Link>
         <h2>Create Employee</h2>
         <form id="create-employee">
             <label htmlFor="first-name" className="block mt-4">First Name</label>
@@ -89,14 +95,6 @@ export const FormCreateEmployee: React.FC = () => {
                 <label htmlFor="state" className="block mt-4">State</label>
                 <Select options={optionStates} />
                 
-                {/* <label htmlFor="state">State</label>
-                <select name="state" id="state" 
-                  value={dataEmployee.state} onChange={(e) => handleChangeDataEmployee('state', e.target.value)}>
-                    {states.map((state, index) => (
-                      <option key={index} value={state.name}>{state.name}</option>
-                    ))}
-                </select> */}
-
                 <label htmlFor="zip-code" className="block mt-4">Zip Code</label>
                 <input id="zip-code" type="number" name="zip-code"
                  value={dataEmployee.zipCode} onChange={(e) => handleChangeDataEmployee('zipCode', e.target.value)}/>
@@ -104,8 +102,10 @@ export const FormCreateEmployee: React.FC = () => {
 
             <label htmlFor="department" className="block mt-4">Department</label>
             <Select options={department} />
+            
         </form>
-        <ModalConfirmationCreateEmployee />
+        <button onClick={toggleModal}>Save</button>
+        <Modal isOpen={modalIsOpen} handleClose={toggleModal} customText='Employee Created'/>
     </div>
   )
 }
