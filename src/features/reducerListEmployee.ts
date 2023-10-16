@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface EmployeeData {
     firstName: string,
     lastName: string
-    dateOfBirth: Date
-    startDate: Date
-    street: string
-    city: string
-    state: string
-    zipCode: string
-    department: string
+    dateOfBirth: Date,
+    startDate: Date,
+    street: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    department: string,
 }
 
 const initialStateEmployees: EmployeeData[] = []

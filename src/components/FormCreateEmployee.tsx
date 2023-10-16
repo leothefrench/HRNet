@@ -8,6 +8,8 @@ import Select from 'react-select'
 import { department } from './data/dataDepartment';
 import { optionStates } from './data/dataOptionStates';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addEmployee } from '../features/reducerListEmployee';
 
 /**
  * Cette interface définit la structure des données nécessaires à la création d'un nouvel employée.
@@ -58,45 +60,61 @@ export const FormCreateEmployee = () => {
   const [selectedStartDate, setSelectedStartDate]= useState(null) // 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
+  // Création d'un objet newEmployee pour le reducer
+  const newEmployee = {
+    firstName: dataEmployee.firstName,
+    lastName: dataEmployee.lastName,
+    dateOfBirth: dataEmployee.dateOfBirth.toISOString(),
+    startDate: dataEmployee.startDate.toISOString(),
+    street: dataEmployee.street,
+    city: dataEmployee.city,
+    state: dataEmployee.state,
+    zipCode: dataEmployee.zipCode,
+    department: dataEmployee.department,
+  }
+
+  const dispatch =  useDispatch()
+  
   const toggleModal = () => {
+      dispatch(addEmployee(newEmployee))
       setModalIsOpen(!modalIsOpen)     
   }
 
   return (
-    <div className="flex flex-col items-center justify-center bg-teal-500 w-1/2 m-auto">
-        <Link to='/employees'>View Current Employees</Link>
-        <h2>Create Employee</h2>
-        <form id="create-employee">
+    <div className="flex flex-col items-center justify-center w-full m-auto mt-4">
+        <Link to='/employees' className="mb-4 text-blue-600 hover:text-blue-800">View Current Employees</Link>
+        <h2 className="mb-2">Create Employee</h2>
+        <form id="create-employee" className="w-full max-w-md mx-auto bg-white p-4 shadow-md rounded-lg">
             <label htmlFor="first-name" className="block mt-4">First Name</label>
-            <input className="rounded-sm" type="text" id="first-name" name="first-name"
+            <input className="w-full p-2 border rounded" type="text" id="first-name" name="first-name"
              value={dataEmployee.firstName} onChange={(e) => handleChangeDataEmployee('firstName', e.target.value)} />
 
             <label htmlFor="last-name" className="block mt-4">Last Name</label>
-            <input type="text" id="last-name" name="last-name" 
+            <input className="w-full p-2 border rounded" type="text" id="last-name" name="last-name" 
               value={dataEmployee.lastName} onChange={(e) => handleChangeDataEmployee('lastName', e.target.value)} />
 
             <label htmlFor="date-of-birth" className="block mt-4">Date of Birth</label>
-            <DatePicker selected={selectedDate} onChange={date => setSelectedDate(date)} name="date-of-birth"/>
+            <DatePicker className="w-full p-2 border rounded" selected={selectedDate} onChange={date => setSelectedDate(date)} name="date-of-birth"/>
 
             <label htmlFor="start-date" className="block mt-4 ">Start Date</label>
-            <DatePicker selected={selectedStartDate} onChange={startDate => setSelectedStartDate(startDate)} name="start-date"/>
+            <DatePicker className="w-full p-2 border rounded" selected={selectedStartDate} onChange={startDate => setSelectedStartDate(startDate)} name="start-date"/>
 
-            <fieldset className="address">
+            <fieldset className="address mt-4">
                 <legend>Address</legend>
 
                 <label htmlFor="street" className="block mt-4">Street</label>
-                <input id="street" type="text" name="street" 
+                <input className="w-full p-2 border rounded" id="street" type="text" name="street" 
                   value={dataEmployee.street} onChange={(e) => handleChangeDataEmployee('street', e.target.value)}/>
 
                 <label htmlFor="city" className="block mt-4">City</label>
-                <input id="city" type="text" name="city" 
+                <input className="w-full p-2 border rounded" id="city" type="text" name="city" 
                   value={dataEmployee.city} onChange={(e) => handleChangeDataEmployee('city', e.target.value)} />
                   
                 <label htmlFor="state" className="block mt-4">State</label>
                 <Select options={optionStates} />
                 
                 <label htmlFor="zip-code" className="block mt-4">Zip Code</label>
-                <input id="zip-code" type="number" name="zip-code"
+                <input className="w-full p-2 border rounded" id="zip-code" type="number" name="zip-code"
                  value={dataEmployee.zipCode} onChange={(e) => handleChangeDataEmployee('zipCode', e.target.value)}/>
             </fieldset>
 
@@ -104,7 +122,7 @@ export const FormCreateEmployee = () => {
             <Select options={department} />
             
         </form>
-        <button onClick={toggleModal}>Save</button>
+        <button className="bg-[#88cc14] hover:bg-[#8be966] text-white py-2 px-4 rounded mt-4" onClick={toggleModal}>Save</button>
         <Modal isOpen={modalIsOpen} handleClose={toggleModal} customText='Employee Created'/>
     </div>
   )
