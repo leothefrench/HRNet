@@ -14,11 +14,11 @@ import { addEmployee } from '../features/reducerListEmployee';
 /**
  * Cette interface définit la structure des données nécessaires à la création d'un nouvel employée.
  */
-interface EmployeeData {
+export interface EmployeeData {
   firstName: string,
   lastName: string,
-  dateOfBirth: Date,
-  startDate: Date,
+  dateOfBirth: Date | null,
+  startDate: Date | null,
   street: string,
   city: string
   state: string,
@@ -36,8 +36,8 @@ export const FormCreateEmployee = () => {
   const [dataEmployee, setDataEmployee] = useState<EmployeeData>({
     firstName: '',
     lastName: '',
-    dateOfBirth: new Date(),
-    startDate: new Date(),
+    dateOfBirth: null,
+    startDate: null,
     street: '',
     city: '',
     state: '',
@@ -56,16 +56,16 @@ export const FormCreateEmployee = () => {
     setDataEmployee({...dataEmployee, [fieldName]: value}) 
   }
 
-  const [selectedDate, setSelectedDate]= useState(null) // Birth Date
-  const [selectedStartDate, setSelectedStartDate]= useState(null) // 
+  const [selectedDate, setSelectedDate]= useState<Date | null>(null)
+  const [selectedStartDate, setSelectedStartDate]= useState<Date | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   // Création d'un objet newEmployee pour le reducer
   const newEmployee = {
     firstName: dataEmployee.firstName,
     lastName: dataEmployee.lastName,
-    dateOfBirth: dataEmployee.dateOfBirth.toISOString(),
-    startDate: dataEmployee.startDate.toISOString(),
+    dateOfBirth: dataEmployee.dateOfBirth instanceof Date ? dataEmployee.dateOfBirth?.toISOString() : '' ,
+    startDate: dataEmployee.startDate instanceof Date ? dataEmployee.startDate?.toISOString() : '',
     street: dataEmployee.street,
     city: dataEmployee.city,
     state: dataEmployee.state,
@@ -77,14 +77,16 @@ export const FormCreateEmployee = () => {
   
   const toggleModal = () => {
       dispatch(addEmployee(newEmployee))
-      setModalIsOpen(!modalIsOpen)     
+      setModalIsOpen(!modalIsOpen)      
   }
+
+  const togglingModal = () => { setModalIsOpen(!modalIsOpen) }
 
   return (
     <div className="flex flex-col items-center justify-center w-full m-auto mt-4">
         <Link to='/employees' className="mb-4 text-blue-600 hover:text-blue-800">View Current Employees</Link>
         <h2 className="mb-2">Create Employee</h2>
-        <form id="create-employee" className="w-full max-w-md mx-auto bg-white p-4 shadow-md rounded-lg">
+        <form className="w-full max-w-md mx-auto bg-white p-4 shadow-md rounded-lg">
             <label htmlFor="first-name" className="block mt-4">First Name</label>
             <input className="w-full p-2 border rounded" type="text" id="first-name" name="first-name"
              value={dataEmployee.firstName} onChange={(e) => handleChangeDataEmployee('firstName', e.target.value)} />
@@ -111,8 +113,13 @@ export const FormCreateEmployee = () => {
                   value={dataEmployee.city} onChange={(e) => handleChangeDataEmployee('city', e.target.value)} />
                   
                 <label htmlFor="state" className="block mt-4">State</label>
-                <Select options={optionStates} />
-                
+                <Select options={optionStates} value={optionStates.find((opt) => opt.value === dataEmployee.state) || null}
+                onChange={(selectedOption) => {
+                  if (selectedOption) {
+                    handleChangeDataEmployee('state', selectedOption.value);
+                  }
+                }}
+              />                
                 <label htmlFor="zip-code" className="block mt-4">Zip Code</label>
                 <input className="w-full p-2 border rounded" id="zip-code" type="number" name="zip-code"
                  value={dataEmployee.zipCode} onChange={(e) => handleChangeDataEmployee('zipCode', e.target.value)}/>
@@ -123,7 +130,8 @@ export const FormCreateEmployee = () => {
             
         </form>
         <button className="bg-[#88cc14] hover:bg-[#8be966] text-white py-2 px-4 rounded mt-4" onClick={toggleModal}>Save</button>
-        <Modal isOpen={modalIsOpen} handleClose={toggleModal} customText='Employee Created'/>
+
+        <Modal isOpen={modalIsOpen} handleClose={togglingModal} customText='Employee Created'/>
     </div>
   )
 }

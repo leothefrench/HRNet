@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface EmployeeData {
     firstName: string,
     lastName: string
-    dateOfBirth: Date,
-    startDate: Date,
+    dateOfBirth: string,
+    startDate: string,
     street: string,
     city: string,
     state: string,
