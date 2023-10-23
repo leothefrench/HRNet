@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addEmployee } from '../features/reducerListEmployee';
 
+
 /**
  * Cette interface définit la structure des données nécessaires à la création d'un nouvel employée.
  */
@@ -41,7 +42,7 @@ export const FormCreateEmployee = () => {
     street: '',
     city: '',
     state: '',
-    zipCode: states[0].name,
+    zipCode: states[0].abbreviation,
     department: 'Sales'
     }
   )
@@ -64,8 +65,8 @@ export const FormCreateEmployee = () => {
   const newEmployee = {
     firstName: dataEmployee.firstName,
     lastName: dataEmployee.lastName,
-    dateOfBirth: dataEmployee.dateOfBirth instanceof Date ? dataEmployee.dateOfBirth?.toISOString() : '' ,
-    startDate: dataEmployee.startDate instanceof Date ? dataEmployee.startDate?.toISOString() : '',
+    dateOfBirth: selectedDate ? selectedDate.toISOString() : null,
+    startDate:  selectedStartDate ? selectedStartDate.toISOString() : null,
     street: dataEmployee.street,
     city: dataEmployee.city,
     state: dataEmployee.state,
@@ -75,7 +76,9 @@ export const FormCreateEmployee = () => {
 
   const dispatch =  useDispatch()
   
-  const toggleModal = () => {
+  const toggleModal = (e) => {
+      e.preventDefault()
+      console.log("Enregistrement de l'employé :", newEmployee);
       dispatch(addEmployee(newEmployee))
       setModalIsOpen(!modalIsOpen)      
   }
@@ -129,7 +132,7 @@ export const FormCreateEmployee = () => {
             <Select options={department} />
             
         </form>
-        <button className="bg-[#88cc14] hover:bg-[#8be966] text-white py-2 px-4 rounded mt-4" onClick={toggleModal}>Save</button>
+        <button className="bg-[#88cc14] hover:bg-[#8be966] text-white py-2 px-4 rounded mt-4" type="submit" onClick={toggleModal}>Save</button>
 
         <Modal isOpen={modalIsOpen} handleClose={togglingModal} customText='Employee Created'/>
     </div>

@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface EmployeeData {
     firstName: string,
-    lastName: string
-    dateOfBirth: string,
-    startDate: string,
+    lastName: string,
+    dateOfBirth: string | null,
+    startDate: string | null,
     street: string,
     city: string,
     state: string,

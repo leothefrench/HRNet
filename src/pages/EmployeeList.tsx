@@ -12,4 +12,4 @@ export const EmployeeList = () => {
       <TableListEmployees listOfEmployees={employees} />
     </>
   )
-}
+} 
