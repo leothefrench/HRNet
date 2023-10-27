@@ -41,8 +41,8 @@ export const FormCreateEmployee = () => {
     startDate: null,
     street: '',
     city: '',
-    state: '',
-    zipCode: states[0].abbreviation,
+    state: states[0].abbreviation,
+    zipCode: '',
     department: 'Sales'
     }
   )
@@ -76,7 +76,7 @@ export const FormCreateEmployee = () => {
 
   const dispatch =  useDispatch()
   
-  const toggleModal = (e) => {
+  const toggleModal = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
       console.log("Enregistrement de l'employé :", newEmployee);
       dispatch(addEmployee(newEmployee))
@@ -122,7 +122,8 @@ export const FormCreateEmployee = () => {
                     handleChangeDataEmployee('state', selectedOption.value);
                   }
                 }}
-              />                
+                getOptionLabel={(option) => option.label}
+                />                
                 <label htmlFor="zip-code" className="block mt-4">Zip Code</label>
                 <input className="w-full p-2 border rounded" id="zip-code" type="number" name="zip-code"
                  value={dataEmployee.zipCode} onChange={(e) => handleChangeDataEmployee('zipCode', e.target.value)}/>
