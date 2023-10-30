@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTable, Column, useSortBy, useFilters} from 'react-table'
 import { Dropdown } from './Dropdown';
+import { CurrentPage } from './CurrentPage';
 interface Employee {
   firstName: string;
   lastName: string;
@@ -206,9 +207,9 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
     useSortBy,
   )
   return (
-    <div>
+    <div className='text-sm mt-4'>
     <Dropdown numberRowSelected={numberRowSelected} setNumberRowSelected={setNumberRowSelected} filterData={filterData} />
-    <table {...getTableProps()} className="w-full border-collapse border">
+    <table {...getTableProps()} className="w-full border-collapse border text-sm">
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()} className="bg-gray-200">
@@ -237,6 +238,15 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
         })}
       </tbody>
     </table>
+      <div className="containerInfos-underTable flex justify-between">
+        <div className="mt-2">
+            Showing{' '}
+            {rows.length > 0 ? rows[0].index + 1 : 0} to {rows.length} of {filteredData.length} entries
+            {filteredData.length !== listOfEmployees.length &&
+              ` (filtered from ${listOfEmployees.length} total entries)`}
+          </div>
+          <CurrentPage />
+      </div>
     </div>
   )
 }

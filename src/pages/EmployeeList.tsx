@@ -9,9 +9,9 @@ export const EmployeeList = () => {
 
   return (
     <div className='px-12 my-4'>
-      <h1>Employees List</h1>
+      <h1 className='text-2xl text-center font-medium mt-8'>Current Employees</h1>
       <TableListEmployees listOfEmployees={employees} />
-      <Link to='/' className="text-blue-500 hover:text-blue-700">Home</Link>
+      <Link to='/' className="block mx-auto text-blue-500 hover:text-blue-700 flex items-center justify-center">Home</Link>
     </div>
   )
 } 

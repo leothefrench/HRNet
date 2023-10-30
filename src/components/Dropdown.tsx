@@ -16,16 +16,21 @@ export const Dropdown: React.FC<DropdownProps> = ({numberRowSelected, setNumberR
         setNumberRowSelected(parseInt(e.target.value, 10))
     }
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchText(e.target.value)
-        filterData(e.target.value)
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement> | string) => {
+        if (typeof e === 'string') {
+            setSearchText(e)
+            filterData(e)
+        } else {
+            setSearchText(e.target.value)
+            filterData(e.target.value)
+        }
     }
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center mb-4">
         <div>
             <span>Show</span>
-            <select id="row" value={numberRowSelected} onChange={handleSelectRow}>
+            <select id="row" value={numberRowSelected} onChange={handleSelectRow} className="mx-1 rounded">
                 {options.map((choice) => (
                     <option key={choice} value={choice}>
                         {choice}
@@ -34,14 +39,18 @@ export const Dropdown: React.FC<DropdownProps> = ({numberRowSelected, setNumberR
             </select>
             <span>entries</span>
         </div>
-        <div>
-            <label htmlFor="search">Search:</label>
+        <div className="search-container relative">
+            <label htmlFor="search" className="mx-1">Search:</label>
             <input
                 type="text"
                 id="search"
                 value={searchText}
                 onChange={handleSearch}
+                className="rounded pr-10"
             />
+            {searchText && (
+                <button className="text-red-500 text-center absolute top-0 right-0 rounded pr-2" onClick={() => handleSearch('')}>x</button>
+            )}
         </div>
     </div>
   )
