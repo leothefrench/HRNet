@@ -20,8 +20,6 @@ interface TableListEmployeesProps {
 
 export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEmployees }) => {
 
-  console.log(listOfEmployees)
-
   const [searchText, setSearchText] = React.useState('');
   const [numberRowSelected, setNumberRowSelected] = React.useState(10);
   const [filteredData, setFilteredData] = React.useState(listOfEmployees)
@@ -30,8 +28,8 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
     setSearchText(value)
 
     const updatedFilterData = listOfEmployees.filter((employee) => {
-      return (
-        employee.firstName.toLowerCase().includes(value.toLowerCase())
+      return  Object.values(employee).some((field) => 
+          field ? field.toString().toLowerCase().includes(value.toLowerCase()) : false
       )
     })
     setFilteredData(updatedFilterData)
@@ -84,7 +82,7 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
         accessor: 'dateOfBirth',
         sortType: 'alphanumeric',
         Cell: ({value}) => {
-          const formattedDate = value ? new Date(value).toLocaleDateString() : ''
+          const formattedDate = value ? value.split('T')[0]  : ''
           return formattedDate
         }
       },
@@ -103,14 +101,14 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
         accessor: 'startDate',
         sortType: 'alphanumeric',
         Cell: ({value}) => {
-          const formattedDate = value ? new Date(value).toLocaleDateString() : ''
+          const formattedDate = value ? value.split('T')[0]  : ''
           return formattedDate
         }
       },
       {
         Header: (
           <>
-          First Name{" "}
+          Street{" "}
             <span className="arrow-up">
               🔼
             </span>
@@ -186,7 +184,6 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
     []
   )
 
-  // const data = React.useMemo(() => listOfEmployees, [listOfEmployees])
   const data = React.useMemo(() => filteredData, [filteredData])
 
   const {

@@ -130,7 +130,14 @@ export const FormCreateEmployee = () => {
             </fieldset>
 
             <label htmlFor="department" className="block mt-4">Department</label>
-            <Select options={department} />
+            <Select options={department} 
+              value={department.find((opt) => opt.value === dataEmployee.department) || null}
+              onChange={(selectedOption) => {
+                if (selectedOption) {
+                  handleChangeDataEmployee('department', selectedOption.value);
+                }
+              }}
+            />
             
         </form>
         <button className="bg-[#88cc14] hover:bg-[#8be966] text-white py-2 px-4 rounded mt-4" type="submit" onClick={toggleModal}>Save</button>
