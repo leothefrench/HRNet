@@ -1,9 +1,9 @@
-// import './formCreateEmployee.scss'
 import { states } from './data/dataStates'
 import { useState } from 'react'
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
-import { Modal } from './plugins/ModalDialog'
+// import { Modal } from './plugins/ModalDialog'
+import { Modal } from 'react-confirm-modal-v1'
 import Select from 'react-select'
 import { department } from './data/dataDepartment';
 import { optionStates } from './data/dataOptionStates';
