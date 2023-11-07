@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import employeesSlice from "./reducerListEmployee"
 import storage from "redux-persist/lib/storage";
 import {

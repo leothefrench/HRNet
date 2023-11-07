@@ -20,12 +20,10 @@ interface TableListEmployeesProps {
 
 export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEmployees }) => {
 
-  const [searchText, setSearchText] = React.useState('');
   const [numberRowSelected, setNumberRowSelected] = React.useState(10);
   const [filteredData, setFilteredData] = React.useState(listOfEmployees)
 
   const filterData = (value: string) => { 
-    setSearchText(value)
 
     const updatedFilterData = listOfEmployees.filter((employee) => {
       return  Object.values(employee).some((field) => 
@@ -206,7 +204,7 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
   return (
     <div className='text-sm mt-4'>
     <Dropdown numberRowSelected={numberRowSelected} setNumberRowSelected={setNumberRowSelected} filterData={filterData} />
-    <table {...getTableProps()} className="w-full border-collapse border text-sm">
+    <table {...getTableProps()} className="bg-white w-full border-collapse border text-sm">
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()} className="bg-gray-200">

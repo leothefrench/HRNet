@@ -28,30 +28,44 @@ export const Dropdown: React.FC<DropdownProps> = ({numberRowSelected, setNumberR
 
   return (
     <div className="flex justify-between items-center mb-4">
-        <div>
-            <span>Show</span>
-            <select id="row" value={numberRowSelected} onChange={handleSelectRow} className="mx-1 rounded">
-                {options.map((choice) => (
-                    <option key={choice} value={choice}>
-                        {choice}
-                    </option>
-                ))}
-            </select>
-            <span>entries</span>
-        </div>
-        <div className="search-container relative">
-            <label htmlFor="search" className="mx-1">Search:</label>
-            <input
-                type="text"
-                id="search"
-                value={searchText}
-                onChange={handleSearch}
-                className="rounded pr-10"
-            />
-            {searchText && (
-                <button className="text-red-500 text-center absolute top-0 right-0 rounded pr-2" onClick={() => handleSearch('')}>x</button>
-            )}
-        </div>
+      <div>
+        <label htmlFor="row" className="mx-1">
+          Show:
+        </label>
+        <select
+          id="row"
+          value={numberRowSelected}
+          onChange={handleSelectRow}
+          className="mx-1 rounded"
+        >
+          {options.map((choice) => (
+            <option key={choice} value={choice}>
+              {choice}
+            </option>
+          ))}
+        </select>
+        <span>entries</span>
+      </div>
+      <div className="search-container relative">
+        <label htmlFor="search" className="mx-1">
+          Search:
+        </label>
+        <input
+          type="text"
+          id="search"
+          value={searchText}
+          onChange={handleSearch}
+          className="rounded pr-10"
+        />
+        {searchText && (
+          <button
+            className="text-red-500 text-center absolute top-0 right-0 rounded pr-2"
+            onClick={() => handleSearch('')}
+          >
+            x
+          </button>
+        )}
+      </div>
     </div>
-  )
+  );
 }
