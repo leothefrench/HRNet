@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker.css'
+// import DatePicker from "react-datepicker";
+// import 'react-datepicker/dist/react-datepicker.css'
 import { Modal } from 'react-confirm-modal-v1'
 import Select from 'react-select'
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { department } from './data/dataDepartment';
 import { optionStates } from './data/dataOptionStates';
 import { addEmployee } from '../features/reducerListEmployee';
 import { FormInputField } from './FormInputField';
+import { FormDatePicker } from './FormDatePicker';
 
 
 /**
@@ -89,48 +90,102 @@ export const FormCreateEmployee = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full m-auto mt-4">
-        <Link to='/employees' className="mb-4 text-blue-600 hover:text-blue-800">View Current Employees</Link>
-        <h2 className="mb-2">Create Employee</h2>
-        <form className="w-full max-w-md mx-auto bg-white p-4 shadow-md rounded-lg">
-            <FormInputField label="First Name" value={dataEmployee.firstName} onChange={(e) => handleChangeDataEmployee('firstName', e.target.value)} />
-            <FormInputField label="Last Name" value={dataEmployee.lastName} onChange={(e) => handleChangeDataEmployee('lastName', e.target.value)} />
+      <Link to="/employees" className="mb-4 text-blue-900 hover:text-blue-800">
+        View Current Employees
+      </Link>
+      <h2 className="mb-2">Create Employee</h2>
+      <form className="w-full max-w-md mx-auto bg-white p-4 shadow-md rounded-lg">
+        <FormInputField
+          label="First Name"
+          value={dataEmployee.firstName}
+          onChange={(e) => handleChangeDataEmployee('firstName', e.target.value)
+          }
+        />
+        <FormInputField
+          label="Last Name"
+          value={dataEmployee.lastName}
+          onChange={(e) => handleChangeDataEmployee('lastName', e.target.value)}
+        />
 
-            <label htmlFor="date-of-birth" className="block mt-4">Date of Birth</label>
-            <DatePicker className="w-full p-2 border rounded" selected={selectedDate} onChange={date => setSelectedDate(date)} name="date-of-birth"/>
+        <FormDatePicker
+          label="Date of Birth"
+          value={selectedDate}
+          onChange={(date) => setSelectedDate(date)}
+        />
 
-            <label htmlFor="start-date" className="block mt-4 ">Start Date</label>
-            <DatePicker className="w-full p-2 border rounded" selected={selectedStartDate} onChange={startDate => setSelectedStartDate(startDate)} name="start-date"/>
+        <FormDatePicker
+          label="Start Date"
+          value={selectedStartDate}
+          onChange={(startDate) => setSelectedStartDate(startDate)}
+        />
 
-            <fieldset className="address mt-4">
-                <legend>Address</legend>
+        <fieldset className="address mt-4">
+          <legend>Address</legend>
 
-                <FormInputField label="Street"  value={dataEmployee.street} onChange={(e) =>  handleChangeDataEmployee('street', e.target.value)} />
-                <FormInputField label="City"  value={dataEmployee.city} onChange={(e) =>  handleChangeDataEmployee('city', e.target.value)} />
-                  
-                <label htmlFor="state" className="block mt-4">State</label>
-                <Select options={optionStates} value={optionStates.find((opt) => opt.value === dataEmployee.state) || null}
-                onChange={(selectedOption) => {
-                  if (selectedOption) {
-                    handleChangeDataEmployee('state', selectedOption.value);
-                  }
-                }}
-                getOptionLabel={(option) => option.label}
-                />  
-                <FormInputField label="Zip Code" value={dataEmployee.zipCode} onChange={(e) => handleChangeDataEmployee('zipCode', e.target.value)} />              
-            </fieldset>
+          <FormInputField
+            label="Street"
+            value={dataEmployee.street}
+            onChange={(e) => handleChangeDataEmployee('street', e.target.value)}
+          />
+          <FormInputField
+            label="City"
+            value={dataEmployee.city}
+            onChange={(e) => handleChangeDataEmployee('city', e.target.value)}
+          />
 
-            <label htmlFor="department" className="block mt-4">Department</label>
-            <Select options={department} 
-              value={department.find((opt) => opt.value === dataEmployee.department) || null}
-              onChange={(selectedOption) => {
-                if (selectedOption) {
-                  handleChangeDataEmployee('department', selectedOption.value);
-                }
-              }}
-            />
-        </form>
-        <button className="bg-[#88cc14] hover:bg-[#8be966] py-2 px-4 rounded mt-4" type="submit" onClick={toggleModal}>Save</button>
-        <Modal isOpen={modalIsOpen} handleClose={togglingModal} customText='Employee Created'/>
+          <label htmlFor="state" className="block mt-4">
+            State
+          </label>
+          <Select
+            options={optionStates}
+            value={
+              optionStates.find((opt) => opt.value === dataEmployee.state) ||
+              null
+            }
+            onChange={(selectedOption) => {
+              if (selectedOption) {
+                handleChangeDataEmployee('state', selectedOption.value);
+              }
+            }}
+            getOptionLabel={(option) => option.label}
+          />
+          <FormInputField
+            label="Zip Code"
+            value={dataEmployee.zipCode}
+            onChange={(e) =>
+              handleChangeDataEmployee('zipCode', e.target.value)
+            }
+          />
+        </fieldset>
+
+        <label htmlFor="department" className="block mt-4">
+          Department
+        </label>
+        <Select
+          options={department}
+          value={
+            department.find((opt) => opt.value === dataEmployee.department) ||
+            null
+          }
+          onChange={(selectedOption) => {
+            if (selectedOption) {
+              handleChangeDataEmployee('department', selectedOption.value);
+            }
+          }}
+        />
+      </form>
+      <button
+        className="bg-[#88cc14] hover:bg-[#8be966] py-2 px-4 rounded mt-4"
+        type="submit"
+        onClick={toggleModal}
+      >
+        Save
+      </button>
+      <Modal
+        isOpen={modalIsOpen}
+        handleClose={togglingModal}
+        customText="Employee Created"
+      />
     </div>
-  )
+  );
 }
