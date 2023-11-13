@@ -21,7 +21,9 @@ interface TableListEmployeesProps {
 
 export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEmployees }) => {
 
+  // Etat du sélecteur du nombre de lignes devant être affiché
   const [numberRowSelected, setNumberRowSelected] = React.useState(10);
+
   const [filteredData, setFilteredData] = React.useState(listOfEmployees)
 
   const filterData = (value: string) => { 
@@ -240,8 +242,8 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
             {rows.length > 0 ? rows[0].index + 1 : 0} to {rows.length} of {filteredData.length} entries
             {filteredData.length !== listOfEmployees.length &&
               ` (filtered from ${listOfEmployees.length} total entries)`}
-          </div>
-          <CurrentPage />
+        </div>
+        <CurrentPage />
       </div>
     </div>
   )

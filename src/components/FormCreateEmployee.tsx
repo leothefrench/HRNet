@@ -1,18 +1,15 @@
 import { useState } from 'react'
-// import DatePicker from "react-datepicker";
-// import 'react-datepicker/dist/react-datepicker.css'
-import { Modal } from 'react-confirm-modal-v1'
-import Select from 'react-select'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Modal } from 'react-confirm-modal-v1'
+import Select from 'react-select'
 
 import { states } from './data/dataStates';
-import { department } from './data/dataDepartment';
 import { optionStates } from './data/dataOptionStates';
+import { department } from './data/dataDepartment';
 import { addEmployee } from '../features/reducerListEmployee';
 import { FormInputField } from './FormInputField';
 import { FormDatePicker } from './FormDatePicker';
-
 
 /**
  * Cette interface définit la structure des données nécessaires à la création d'un nouvel employé.
@@ -98,7 +95,8 @@ export const FormCreateEmployee = () => {
         <FormInputField
           label="First Name"
           value={dataEmployee.firstName}
-          onChange={(e) => handleChangeDataEmployee('firstName', e.target.value)
+          onChange={(e) =>
+            handleChangeDataEmployee('firstName', e.target.value)
           }
         />
         <FormInputField
@@ -172,6 +170,7 @@ export const FormCreateEmployee = () => {
               handleChangeDataEmployee('department', selectedOption.value);
             }
           }}
+          getOptionLabel={(option) => option.label}
         />
       </form>
       <button
