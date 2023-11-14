@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Modal } from 'react-confirm-modal-v1'
+import { Modal } from 'react-confirm-modal-v1' // Import de mon module de NPM
 import Select from 'react-select'
 
 import { states } from './data/dataStates';
 import { optionStates } from './data/dataOptionStates';
 import { department } from './data/dataDepartment';
 import { addEmployee } from '../features/reducerListEmployee';
-import { FormInputField } from './FormInputField';
-import { FormDatePicker } from './FormDatePicker';
+import { FormInputField } from './formComponents/FormInputField'
+import { FormDatePicker } from './formComponents/FormDatePicker';
 
 /**
  * Cette interface définit la structure des données nécessaires à la création d'un nouvel employé.

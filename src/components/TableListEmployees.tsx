@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useTable, Column, useSortBy, useFilters} from 'react-table'
 
-import { Dropdown } from './Dropdown';
-import { CurrentPage } from './CurrentPage';
+import { Dropdown } from './tableListComponents/Dropdown';
+import { CurrentPage } from './tableListComponents/CurrentPage';
+import { Search } from './tableListComponents/Search';
 interface Employee {
   firstName: string;
   lastName: string;
@@ -205,46 +206,58 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
     useSortBy,
   )
   return (
-    <div className='text-sm mt-4'>
-    <Dropdown numberRowSelected={numberRowSelected} setNumberRowSelected={setNumberRowSelected} filterData={filterData} />
-    <table {...getTableProps()} className="bg-white w-full border-collapse border text-sm">
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()} className="bg-gray-200">
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())} className="p-2 border">
-                {column.render('Header')}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map(row => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()} className="border">
-              {row.cells.map(cell => {
-                return (
-                  <td {...cell.getCellProps()} className="p-2 border">
-                    {cell.render('Cell')}
-                  </td>
-                )
-              })}
+    <div className="text-sm mt-4">
+      <div className="flex justify-between items-center">
+        <Dropdown
+          numberRowSelected={numberRowSelected}
+          setNumberRowSelected={setNumberRowSelected}
+        />
+        <Search filterData={filterData} />
+      </div>
+      <table
+        {...getTableProps()}
+        className="bg-white w-full border-collapse border text-sm"
+      >
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()} className="bg-gray-200">
+              {headerGroup.headers.map((column) => (
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className="p-2 border"
+                >
+                  {column.render('Header')}
+                </th>
+              ))}
             </tr>
-          )
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()} className="border">
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()} className="p-2 border">
+                      {cell.render('Cell')}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
       <div className="containerInfos-underTable flex justify-between">
-        <div className="mt-2">
-            Showing{' '}
-            {rows.length > 0 ? rows[0].index + 1 : 0} to {rows.length} of {filteredData.length} entries
-            {filteredData.length !== listOfEmployees.length &&
-              ` (filtered from ${listOfEmployees.length} total entries)`}
+        <div>
+          Showing {rows.length > 0 ? rows[0].index + 1 : 0} to {rows.length} of{' '}
+          {filteredData.length} entries
+          {filteredData.length !== listOfEmployees.length &&
+            ` (filtered from ${listOfEmployees.length} total entries)`}
         </div>
         <CurrentPage />
       </div>
     </div>
-  )
+  );
 }
