@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Modal } from 'react-confirm-modal-v1' // Import de mon module de NPM
-import Select from 'react-select'
+// import Select from 'react-select'
 
 import { states } from './data/dataStates';
 import { optionStates } from './data/dataOptionStates';
@@ -10,6 +10,7 @@ import { department } from './data/dataDepartment';
 import { addEmployee } from '../features/reducerListEmployee';
 import { FormInputField } from './formComponents/FormInputField'
 import { FormDatePicker } from './formComponents/FormDatePicker';
+import { FormSelect } from './formComponents/FormSelect';
 
 /**
  * Cette interface définit la structure des données nécessaires à la création d'un nouvel employé.
@@ -130,23 +131,18 @@ export const FormCreateEmployee = () => {
             value={dataEmployee.city}
             onChange={(e) => handleChangeDataEmployee('city', e.target.value)}
           />
-
-          <label htmlFor="state" className="block mt-4">
-            State
-          </label>
-          <Select
+          <FormSelect
+            label='State'
+            value={optionStates.find((opt) => opt.value === dataEmployee.state) ||
+              null}
             options={optionStates}
-            value={
-              optionStates.find((opt) => opt.value === dataEmployee.state) ||
-              null
-            }
             onChange={(selectedOption) => {
               if (selectedOption) {
                 handleChangeDataEmployee('state', selectedOption.value);
               }
             }}
             getOptionLabel={(option) => option.label}
-          />
+           />
           <FormInputField
             label="Zip Code"
             value={dataEmployee.zipCode}
@@ -155,14 +151,10 @@ export const FormCreateEmployee = () => {
             }
           />
         </fieldset>
-
-        <label htmlFor="department" className="block mt-4">
-          Department
-        </label>
-        <Select
+        <FormSelect
+          label='Departemnt'
           options={department}
-          value={
-            department.find((opt) => opt.value === dataEmployee.department) ||
+          value={department.find((opt) => opt.value === dataEmployee.department) ||
             null
           }
           onChange={(selectedOption) => {
