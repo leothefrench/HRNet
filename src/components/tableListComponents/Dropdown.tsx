@@ -8,7 +8,9 @@ export const Dropdown: React.FC<DropdownProps> = ({numberRowSelected, setNumberR
     const options = [10, 25, 50]
 
     const handleSelectRow = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setNumberRowSelected(parseInt(e.target.value, 10))
+        console.log('Selected value:', e.target.value);
+        const selectedValue = parseInt(e.target.value, 10);
+        setNumberRowSelected(selectedValue);
     }
 
   return (

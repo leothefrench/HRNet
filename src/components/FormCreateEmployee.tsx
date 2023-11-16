@@ -118,7 +118,7 @@ export const FormCreateEmployee = () => {
           onChange={(startDate) => setSelectedStartDate(startDate)}
         />
 
-        <fieldset className="address mt-4">
+        <fieldset className="address mt-4 border border-blue-900 p-4 rounded">
           <legend>Address</legend>
 
           <FormInputField

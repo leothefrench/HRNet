@@ -188,23 +188,19 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
 
   const data = React.useMemo(() => filteredData, [filteredData])
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: {
-        sortBy: [],
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns,
+        data,
+        initialState: {
+          sortBy: [],
+          pageSize: numberRowSelected,
+        },
       },
-    },
-    useFilters,
-    useSortBy,
-  )
+      useFilters,
+      useSortBy
+    );
   return (
     <div className="text-sm mt-4">
       <div className="flex justify-between items-center">
@@ -251,7 +247,7 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
       </table>
       <div className="containerInfos-underTable flex justify-between">
         <div>
-          Showing {rows.length > 0 ? rows[0].index + 1 : 0} to {rows.length} of{' '}
+          Showing {rows.length > 0 ? rows[rows.length - 1].index + 1 : 0} of{' '}
           {filteredData.length} entries
           {filteredData.length !== listOfEmployees.length &&
             ` (filtered from ${listOfEmployees.length} total entries)`}

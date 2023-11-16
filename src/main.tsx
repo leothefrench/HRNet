@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 
-import App from './App.tsx';
+import {Router} from './Router.tsx'
 import './index.css';
 import store from './features/stores.ts';
 
@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <BrowserRouter>
         <PersistGate persistor={persistor} >
-          <App />
+          <Router />
         </PersistGate>
       </BrowserRouter>    
     </Provider>

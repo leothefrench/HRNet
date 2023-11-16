@@ -18,7 +18,7 @@ export const Search: React.FC<SearchProps> = ({ filterData }) => {
         }
     }
   return (
-    <div className="search-container relative mb-4">
+    <div className="search-container relative mb-4 mt-2">
       <label htmlFor="search" className="mx-1">
         Search:
       </label>
