@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Modal } from 'react-confirm-modal-v1' // Import de mon module de NPM
-// import Select from 'react-select'
 
 import { states } from './data/dataStates';
 import { optionStates } from './data/dataOptionStates';

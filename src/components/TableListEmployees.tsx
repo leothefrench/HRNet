@@ -24,8 +24,14 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
 
   // Etat du sélecteur du nombre de lignes devant être affiché
   const [numberRowSelected, setNumberRowSelected] = React.useState(10);
-
   const [filteredData, setFilteredData] = React.useState(listOfEmployees)
+  const [page, setPage] = React.useState(1)
+
+  React.useEffect(() => {
+    const startPageIndex = (page - 1) * numberRowSelected
+    const endPageIndex = startPageIndex + numberRowSelected
+    setFilteredData(listOfEmployees.slice(startPageIndex, endPageIndex));
+  }, [listOfEmployees, numberRowSelected, page] )
 
   const filterData = (value: string) => { 
 
@@ -34,6 +40,7 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
           field ? field.toString().toLowerCase().includes(value.toLowerCase()) : false
       )
     })
+    setPage(1)
     setFilteredData(updatedFilterData)
   }
 
@@ -252,7 +259,7 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
           {filteredData.length !== listOfEmployees.length &&
             ` (filtered from ${listOfEmployees.length} total entries)`}
         </div>
-        <CurrentPage />
+        <CurrentPage page={page} setPage={setPage} />
       </div>
     </div>
   );

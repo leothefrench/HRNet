@@ -1,14 +1,19 @@
-import { useState } from 'react'
+interface CurrentPageProps {
+  page: number;
+  setPage: (page: number) =>  void;
+}
 
-export const CurrentPage = () => {
-
-    const [page, setPage] = useState(1)
+export const CurrentPage: React.FC<CurrentPageProps> = ({ page, setPage}) => {
 
     const handleClickPrevious = () => {
-        if (page > 1 ) { setPage(page - 1) }
+        if (page > 1 ) { 
+          setPage(page - 1)
+        }
     }
 
-    const handleClickNext = () => { setPage(page + 1) }
+    const handleClickNext = () => { 
+      setPage(page + 1) 
+    }
 
   return (
     <div className="mt-2">
