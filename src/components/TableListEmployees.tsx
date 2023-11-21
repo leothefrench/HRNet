@@ -21,41 +21,36 @@ interface TableListEmployeesProps {
 }
 
 export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEmployees }) => {
-
   // Etat du sélecteur du nombre de lignes devant être affiché
   const [numberRowSelected, setNumberRowSelected] = React.useState(10);
-  const [filteredData, setFilteredData] = React.useState(listOfEmployees)
-  const [page, setPage] = React.useState(1)
+  const [filteredData, setFilteredData] = React.useState(listOfEmployees);
+  const [page, setPage] = React.useState(1);
 
   React.useEffect(() => {
-    const startPageIndex = (page - 1) * numberRowSelected
-    const endPageIndex = startPageIndex + numberRowSelected
+    const startPageIndex = (page - 1) * numberRowSelected;
+    const endPageIndex = startPageIndex + numberRowSelected;
     setFilteredData(listOfEmployees.slice(startPageIndex, endPageIndex));
-  }, [listOfEmployees, numberRowSelected, page] )
+  }, [listOfEmployees, numberRowSelected, page]);
 
-  const filterData = (value: string) => { 
-
+  const filterData = (value: string) => {
     const updatedFilterData = listOfEmployees.filter((employee) => {
-      return  Object.values(employee).some((field) => 
-          field ? field.toString().toLowerCase().includes(value.toLowerCase()) : false
-      )
-    })
-    setPage(1)
-    setFilteredData(updatedFilterData)
-  }
+      return Object.values(employee).some((field) =>
+        field
+          ? field.toString().toLowerCase().includes(value.toLowerCase())
+          : false
+      );
+    });
+    setPage(1);
+    setFilteredData(updatedFilterData);
+  };
 
   const columns: Column<Employee>[] = React.useMemo(
     () => [
       {
         Header: (
           <>
-            First Name{" "}
-              <span className="arrow-up">
-                🔼
-              </span>
-              <span className="arrow-down">
-                🔽
-              </span>
+            First Name <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
           </>
         ),
         accessor: 'firstName',
@@ -64,13 +59,8 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
       {
         Header: (
           <>
-            Last Name{" "}
-            <span className="arrow-up">
-              🔼
-            </span>
-            <span className="arrow-down">
-              🔽
-            </span>
+            Last Name <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
           </>
         ),
         accessor: 'lastName',
@@ -79,52 +69,37 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
       {
         Header: (
           <>
-            Date Of Birth{" "}
-            <span className="arrow-up">
-              🔼
-            </span>
-            <span className="arrow-down">
-              🔽
-            </span>
+            Date Of Birth <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
           </>
         ),
         accessor: 'dateOfBirth',
         sortType: 'alphanumeric',
-        Cell: ({value}) => {
-          const formattedDate = value ? value.split('T')[0]  : ''
-          return formattedDate
-        }
-      },
-      {
-        Header:  (
-          <>
-            Start Date{" "}
-            <span className="arrow-up">
-              🔼
-            </span>
-            <span className="arrow-down">
-              🔽
-            </span>
-          </>
-        ),
-        accessor: 'startDate',
-        sortType: 'alphanumeric',
-        Cell: ({value}) => {
-          const formattedDate = value ? value.split('T')[0]  : ''
-          return formattedDate
-        }
+        Cell: ({ value }) => {
+          const formattedDate = value ? value.split('T')[0] : '';
+          return formattedDate;
+        },
       },
       {
         Header: (
           <>
-          Street{" "}
-            <span className="arrow-up">
-              🔼
-            </span>
-            <span className="arrow-down">
-              🔽
-            </span>
-        </>
+            Start Date <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
+          </>
+        ),
+        accessor: 'startDate',
+        sortType: 'alphanumeric',
+        Cell: ({ value }) => {
+          const formattedDate = value ? value.split('T')[0] : '';
+          return formattedDate;
+        },
+      },
+      {
+        Header: (
+          <>
+            Street <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
+          </>
         ),
         accessor: 'street',
         sortType: 'alphanumeric',
@@ -132,13 +107,8 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
       {
         Header: (
           <>
-            City{" "}
-            <span className="arrow-up">
-              🔼
-            </span>
-            <span className="arrow-down">
-              🔽
-            </span>
+            City <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
           </>
         ),
         accessor: 'city',
@@ -147,13 +117,8 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
       {
         Header: (
           <>
-            State{" "}
-            <span className="arrow-up">
-              🔼
-            </span>
-            <span className="arrow-down">
-              🔽
-            </span>
+            State <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
           </>
         ),
         accessor: 'state',
@@ -162,13 +127,8 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
       {
         Header: (
           <>
-            Zip Code{" "}
-            <span className="arrow-up">
-              🔼
-            </span>
-            <span className="arrow-down">
-              🔽
-            </span>
+            Zip Code <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
           </>
         ),
         accessor: 'zipCode',
@@ -177,13 +137,8 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
       {
         Header: (
           <>
-            Department{" "}
-            <span className="arrow-up">
-              🔼
-            </span>
-            <span className="arrow-down">
-              🔽
-            </span>
+            Department <span className="arrow-up">🔼</span>
+            <span className="arrow-down">🔽</span>
           </>
         ),
         accessor: 'department',
@@ -191,23 +146,29 @@ export const TableListEmployees: React.FC<TableListEmployeesProps> = ({ listOfEm
       },
     ],
     []
-  )
+  );
 
-  const data = React.useMemo(() => filteredData, [filteredData])
+  const data = React.useMemo(() => filteredData, [filteredData]);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data,
-        initialState: {
-          sortBy: [],
-          pageSize: numberRowSelected,
-        },
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: {
+        sortBy: [],
+        pageSize: numberRowSelected,
       },
-      useFilters,
-      useSortBy
-    );
+    },
+    useFilters,
+    useSortBy
+  );
+
   return (
     <div className="text-sm mt-4">
       <div className="flex justify-between items-center">
